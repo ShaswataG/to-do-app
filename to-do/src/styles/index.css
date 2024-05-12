@@ -1,9 +1,28 @@
+body {
+  background-color: #32012f;
+  color: white;
+  font-family: sans-serif;
+}
+
 .main-container {
   width: 800px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.tasks-container {
+  border-radius: 10px;
+  background-color: #746C74;
+  width: 50%;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .buttons-container {
@@ -16,4 +35,13 @@
   width: 120px;
   height: 25px;
   text-align: center;
+}
+
+@media (max-width: 450px) {
+  .main-container {
+    width: 100vw;
+  }
+  .tasks-container {
+    width: 90%;
+  }
 }

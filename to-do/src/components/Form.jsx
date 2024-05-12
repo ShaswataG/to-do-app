@@ -4,7 +4,9 @@ const Form = () => {
     const { handleChange, handleSubmit, setAddingTask, newTask, setNewTask } = useTasks();
     return (
         <form className="addNewTaskForm">
-            <button className="closeForm" onClick={(e) => {e.preventDefault();  setAddingTask(false); setNewTask("")}}>X</button>
+            <div className="menuBar">
+                <button className="closeForm" onClick={(e) => {e.preventDefault();  setAddingTask(false); setNewTask("")}}>X</button>
+            </div>
             <label>
                 {/* <span>Task Subject</span> */}
                 <input name="newTask" value={newTask} onChange={handleChange} placeholder="Task"/>

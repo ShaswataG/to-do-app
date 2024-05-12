@@ -11,6 +11,7 @@ const App = () => {
   const [tasks, setTasks] = useState([])
   const [newTask, setNewTask] = useState("")
   const [taskItems, setTaskItems] = useState([]);
+  const [category, setCategory] = useState("all")
 
   const addTask = (event) => {
     
@@ -70,32 +71,25 @@ const App = () => {
   
   const handleFilter = (event) => {
     const { name, value } = event.target
-    setTaskItems(prevTaskItems => {
-      if (value === "all")
-        return tasks.map(task => <Task key={task.id} id={task.id} title={task.title} status={task.status} />)
-      else if (value == "active") {
-        return tasks.filter(task => task.status === "active").map(task => {
-          return <Task key={task.id} id={task.id} title={task.title} status={task.status} />
-        })
-      } else if (value === "completed") {
-        return tasks.filter(task => task.status === "completed").map(task => {
-          return <Task key={task.id} id={task.id} title={task.title} status={task.status} />
-        })
-      }
-    })
+    setCategory(value)
   }
 
   React.useEffect(() => {
     console.log("hello")
     console.log(tasks)
     setTaskItems(prevTaskItems => {
-      return tasks.map((task) => {
+      return tasks.filter(task => {
+        if (category === "all")
+          return true
+        else
+          return category === task.status
+      }).map((task) => {
         return (
           <Task key={task.id} id={task.id} title={task.title} status={task.status} />
         )
       })
     })
-  }, [tasks])
+  }, [tasks, category])
 
   return (
     <UserContext.Provider value={{ tasks, handleSubmit, handleChange,setAddingTask, setNewTask, handleStatusChange, handleDeleteTask }}>
@@ -110,7 +104,9 @@ const App = () => {
           </select>
         </div>
         {addingTask && <Form />}
-        {taskItems}
+        <div className="tasks-container">
+          {taskItems.length > 0 ? taskItems : <h1 style={{textAlign: "center"}}>No Tasks Available</h1>}
+        </div>
       </main>
     </UserContext.Provider>
   )
